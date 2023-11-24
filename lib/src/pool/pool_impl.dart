@@ -162,7 +162,7 @@ class PoolImplementation<L> implements Pool<L> {
 
       // If the pool has been closed, this connection needs to be closed as
       // well.
-      if (_semaphore.isClosed || !reuse) {
+      if (_semaphore.isClosed || !reuse || (connection != null && !connection.isOpen)) {
         await connection?._dispose();
       } else {
         // Allow the connection to be re-used later.
